@@ -9,7 +9,7 @@ class MainActivityViewModel: ViewModel() {
     private lateinit var timer: CountDownTimer
 
     /*
-        for every LiveData object, should have privat MutableLiveData, and public LiveData which will
+        for every LiveData object, should have private MutableLiveData, and public LiveData which will
         be exposed to other app components
     */
     private val _seconds = MutableLiveData<Int>()
@@ -25,6 +25,10 @@ class MainActivityViewModel: ViewModel() {
     fun startTimer() {
         timer = object: CountDownTimer(timerValue.value!!, 1000) {
             override fun onFinish() {
+                /*
+                    setValue() - UI thread
+                    postValue() - background thread
+                 */
                 _finished.value = true
             }
 

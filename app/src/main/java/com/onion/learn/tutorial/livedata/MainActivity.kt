@@ -1,20 +1,14 @@
 package com.onion.learn.tutorial.livedata
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.activity_main.*
 
-/*
-    LiveData is an observable data holder class. Unlike a regular observable,
-    LiveData is lifecycle-aware, meaning it respects the lifecycle of other app components,
-    such as activities, fragments, or services. This awareness ensures LiveData only
-    updates app component observers that are in an active lifecycle state.
-
-    https://developer.android.com/topic/libraries/architecture/livedata
- */
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,15 +30,42 @@ class MainActivity : AppCompatActivity() {
             viewModel.stopTimer()
         }
 
+        secondActivityBtn.setOnClickListener {
+            val intent = Intent(this, SecondActivity::class.java)
+            startActivity(intent)
+        }
+
         //LiveData is aware of lifecycle of its observer
         viewModel.seconds.observe(this, Observer {
+            Log.d("seconds", "=============seconds was changed...")
             numberText.text = it.toString()
         })
 
         viewModel.finished.observe(this, Observer {
+            Log.d("finished", "=============finished was changed...")
             if(it) {
                 Toast.makeText(this, "Finished", Toast.LENGTH_SHORT ).show()
             }
         })
+
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        Log.d("onStart", "---------------onStart() is running")
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        Log.d("onResume", "---------------onResume() is running")
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        Log.d("onPause", "---------------onPause() is running")
     }
 }
