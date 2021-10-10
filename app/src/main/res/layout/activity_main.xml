@@ -7,16 +7,26 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Countdown Timer"
+        android:textSize="36sp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
         android:id="@+id/numberText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
         android:textSize="36sp"
-        android:inputType="number"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/title"/>
 
     <EditText
         android:id="@+id/numberInput"
@@ -24,6 +34,8 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="numberDecimal"
+        android:layout_marginTop="20dp"
+        android:tooltipText="Input a number here"
         app:layout_constraintTop_toBottomOf="@id/numberText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

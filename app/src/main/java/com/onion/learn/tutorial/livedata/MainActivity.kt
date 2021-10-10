@@ -14,6 +14,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        Log.d("demo", "---------------onCreate() is running")
+
         val viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
 
         startBtn.setOnClickListener {
@@ -37,35 +39,48 @@ class MainActivity : AppCompatActivity() {
 
         //LiveData is aware of lifecycle of its observer
         viewModel.seconds.observe(this, Observer {
-            Log.d("seconds", "=============seconds was changed...")
+            Log.d("demo", "=============seconds was changed to $it")
             numberText.text = it.toString()
         })
 
         viewModel.finished.observe(this, Observer {
-            Log.d("finished", "=============finished was changed...")
+            Log.d("demo", "=============finished was changed to $it")
             if(it) {
                 Toast.makeText(this, "Finished", Toast.LENGTH_SHORT ).show()
             }
         })
-
-
     }
 
     override fun onStart() {
         super.onStart()
-
-        Log.d("onStart", "---------------onStart() is running")
+        Log.d("demo", "---------------onStart() is running")
     }
 
     override fun onResume() {
         super.onResume()
-
-        Log.d("onResume", "---------------onResume() is running")
+        Log.d("demo", "---------------onResume() is running")
     }
 
     override fun onPause() {
         super.onPause()
+        Log.d("demo", "---------------onPause() is running")
 
-        Log.d("onPause", "---------------onPause() is running")
+        for(num in 1..1000) {
+            Log.i("demo", "onPause()~~~~~~~~~~~~~~~~~~~~~$num")
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("demo", "---------------onStop() is running")
+
+        for(num in 1..1000) {
+            Log.i("demo", "onStop()~~~~~~~~~~~~~~~~~~~~~$num")
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("demo", "---------------onDestroy() is running")
     }
 }
